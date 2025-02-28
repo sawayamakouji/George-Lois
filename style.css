@@ -17,10 +17,11 @@ body {
     align-items: center;
     text-align: center;
     background: linear-gradient(to bottom, #111, #000);
+    padding: 20px;
 }
 
 .main-title {
-    font-size: 3.2rem;
+    font-size: 3rem; /* 🔥 モバイルで最適なサイズ */
     font-weight: 700;
     letter-spacing: 2px;
     max-width: 90%;
@@ -33,29 +34,30 @@ body {
 
 /* 🔥 名言セクション */
 .quotes-container {
-    padding: 80px 5%;  /* ← スマホでも適切な余白に */
+    padding: 50px 5%;  /* ← モバイルでも適切な余白に */
 }
 
 .quote-section {
-    padding: 150px 0;  /* 🔥 フレーズ間の間隔をスマホ向けに微調整 */
+    padding: 100px 0;  /* 🔥 フレーズ間の間隔をスマホ向けに調整 */
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     opacity: 0;
     transform: translateY(60px);
     transition: opacity 1.2s ease-out, transform 1.2s ease-out;
 }
 
+/* 🔥 名言のテキスト */
 .quote {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem; /* 🔥 文字サイズをスマホ向けに微調整 */
+    font-size: 2.2rem;
     font-weight: bold;
     text-align: center;
-    max-width: 800px;
+    max-width: 90%; /* 🔥 スマホの画面幅に合わせる */
     margin: 0 auto;
     line-height: 1.8;
     color: #f5d76e;
-    white-space: pre-line;
-    word-break: keep-all;
-    hyphens: auto;
+    white-space: normal; /* 🔥 不自然な縮小を防ぐ */
+    word-break: break-word; /* 🔥 単語が画面外に出ないように */
+    overflow-wrap: break-word; /* 🔥 画面内で単語を適切に折り返す */
 }
 
 /* 🔥 英語部分のデザイン */
@@ -88,16 +90,16 @@ body {
 /* 🔥 モバイル対応 */
 @media (max-width: 768px) {
     .main-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     .quote {
-        font-size: 1.8rem;
-        max-width: 90%;
+        font-size: 1.6rem;
+        max-width: 95%;
     }
     .quote span {
         font-size: 1.3rem;
     }
     .quote-section {
-        padding: 120px 0; /* スマホ向けに少し狭め */
+        padding: 80px 0; /* スマホ向けに間隔を微調整 */
     }
 }
