@@ -16,8 +16,13 @@ function startAutoScroll() {
     }, 20); // 20msごとにスクロール
 }
 
-// ユーザーがスクロールを開始したら、自動スクロールを発動
+// ユーザーがスクロールを開始したら、自動スクロールを発動（PC）
 document.addEventListener("wheel", () => {
+    startAutoScroll();
+});
+
+// スマホ対応（タッチイベントでスクロール開始）
+document.addEventListener("touchstart", () => {
     startAutoScroll();
 });
 
@@ -26,6 +31,11 @@ document.addEventListener("wheel", () => {
     clearInterval(scrollInterval);
     autoScrollActive = false;
 }, { once: true }); // 一度手動スクロールしたら停止
+
+document.addEventListener("touchmove", () => {
+    clearInterval(scrollInterval);
+    autoScrollActive = false;
+}, { once: true }); // スマホで手動スクロールしたら停止
 
 
 const quotes = [
