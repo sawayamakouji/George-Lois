@@ -188,51 +188,70 @@ const quotes = [
         en: "If you want to change the world, change advertising."
     }
 ];
-
-
-/**
- * 🔥 句読点「、」「。」が行頭・行末で孤立するのを防ぐための処理。
- * ポイント：前の文字と句読点をゼロ幅ノーブレークスペース(\u2060)で結合して、
- *           そこでは絶対に改行せえへんようにする。
- */
-function fixJapaneseLineBreaks(text) {
-  // [^\s] は「空白以外の任意の1文字」、([、。]) は句読点
-  // '$1\u2060$2' で、前の文字＋(ゼロ幅NBSP)＋句読点、に置き換える
-  return text.replace(/([^\s])([、。])/g, '$1\u2060$2');
+// 指定した文字（「、」「。」）で改行する関数
+function formatJapaneseText(text) {
+    return text.replace(/、/g, "、<br>").replace(/。/g, "。<br>");
 }
 
-// ✅ HTMLの要素を取得
+// 名言リストを HTML に追加（改行処理付き）
 const quoteContainer = document.getElementById("quote-container");
-if (!quoteContainer) {
-  console.error("エラー: quoteContainerが見つかりません");
+
+function appendQuotes() {
+    quotes.forEach(quote => {
+        const section = document.createElement("div");
+        section.classList.add("quote-section");
+
+        section.innerHTML = `
+            <p class="quote">${formatJapaneseText(quote.jp)}</p>
+            <span class="quote-en">${quote.en}</span>
+        `;
+
+        quoteContainer.appendChild(section);
+    });
 }
 
-// ✅ 名言リストを HTML に追加（改行最適化処理付き）
-quotes.forEach((quote) => {
-  const section = document.createElement("div");
-  section.classList.add("quote-section");
+// **最初の名言セットを表示**
+appendQuotes();
 
-  // ✅ 改行処理を適用
-  const fixedText = fixJapaneseLineBreaks(quote.jp);
-
-  section.innerHTML = `
-    <p class="quote break-word">${fixedText}</p>
-    <span class="quote-en break-word">${quote.en}</span>
-  `;
-  quoteContainer.appendChild(section);
+// スクロール時のアニメーション適用
+document.addEventListener("scroll", function() {
+    document.querySelectorAll(".quote-section").forEach(section => {
+        if (section.getBoundingClientRect().top < window.innerHeight * 0.8) {
+            section.classList.add("reveal");
+        }
+    });
 });
 
-// ✅ スクロール時にフレーズを浮き上がらせる処理
-function handleScroll() {
-  document.querySelectorAll(".quote-section").forEach(section => {
-    if (section.getBoundingClientRect().top < window.innerHeight * 0.8) {
-      section.classList.add("visible");
+// **スクロール関連の変数**
+let scrollSpeed = 1; // 🔥 スクロール速度
+let scrollInterval;
+
+// **3秒後に自動スクロールを開始**
+setTimeout(() => {
+    startAutoScroll();
+}, 3000);
+
+// **スクロールが下まで行ったら、最初に戻る**
+function checkScrollEnd() {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1) {
+        window.scrollTo(0, 0); // **ページを最上部に戻す**
+        appendQuotes(); // **新しい名言を追加**
     }
-  });
 }
 
-// ✅ スクロールイベントを追加
-document.addEventListener("scroll", handleScroll);
+// **自動スクロール開始**
+function startAutoScroll() {
+    scrollInterval = setInterval(() => {
+        window.scrollBy(0, scrollSpeed);
+        checkScrollEnd();
+    }, 20);
+}
 
-// ✅ ページロード時にも一度チェック
-handleScroll();
+// **ユーザーのスクロールを完全に無効化**
+document.addEventListener("wheel", (event) => event.preventDefault(), { passive: false });
+document.addEventListener("touchmove", (event) => event.preventDefault(), { passive: false });
+document.addEventListener("keydown", (event) => {
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End"].includes(event.key)) {
+        event.preventDefault();
+    }
+});
