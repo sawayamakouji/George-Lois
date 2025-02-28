@@ -1,6 +1,6 @@
 // スクロール関連の変数
 let autoScrollActive = false;
-let scrollSpeed = 1; // スクロール速度（大きくすると速くなる）
+let scrollSpeed = 1; // 🔥 スクロール速度（調整可能）
 let scrollInterval;
 
 // 自動スクロール開始
