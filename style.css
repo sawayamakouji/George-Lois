@@ -6,10 +6,10 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* 🔥 横スクロールを防ぐ */
+    overflow-x: hidden;
 }
 
-/* 🔥 ヒーローセクション（トップのキャッチコピー） */
+/* 🔥 ヒーローセクション（最初のタイトル表示） */
 .hero {
     height: 100vh;
     display: flex;
@@ -17,96 +17,73 @@ body {
     align-items: center;
     text-align: center;
     background: linear-gradient(to bottom, #111, #000);
-    padding: 20px;
 }
 
 .main-title {
-    font-size: 3rem; /* 🔥 モバイルでも適切なサイズ */
+    font-size: 3.5rem;
     font-weight: 700;
     letter-spacing: 2px;
-    max-width: 90%;
+    max-width: 80%;
     text-transform: uppercase;
     text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1.2s ease-out forwards;
+    opacity: 1;
 }
 
-/* 🔥 名言セクション */
+/* 🔥 フレーズセクション（スクロール時に浮き上がる） */
 .quotes-container {
-    padding: 50px 5%;  /* ← スマホでも適切な余白に */
+    padding: 100px 5%;
 }
 
 .quote-section {
-    padding: 100px 0;  /* 🔥 フレーズ間の間隔をスマホ向けに調整 */
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
     opacity: 0;
-    transform: translateY(60px);
-    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-}
-
-/* 🔥 名言のテキスト（左揃え & 改行後の2文字調整） */
-.quote {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: bold;
-    text-align: left; /* 🔥 左揃えに変更 */
-    max-width: 90%;
-    margin: 0 auto;
-    line-height: 1.8;
-    color: #f5d76e;
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
-
-/* 🔥 改行後の2文字以下を小さく */
-.small-text {
-    font-size: 1.6rem; /* 🔥 2文字以下なら小さく */
-    display: inline-block;
-}
-
-/* 🔥 英語部分のデザイン（左揃え） */
-.quote-en {
-    font-size: 1.5rem;
-    display: block;
-    margin-top: 40px;
-    padding-top: 10px;
-    text-align: left; /* 🔥 日本語と統一 */
-    color: rgba(255, 255, 255, 0.7);
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    padding: 50px 0;
 }
 
 /* 🔥 スクロール時にフェードイン */
-.reveal {
+.quote-section.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* 🔥 フェードインアニメーション */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* 🔥 日本語のテキスト（左揃え） */
+.quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: bold;
+    text-align: left; /* 左揃え */
+    max-width: 80%;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: #f5d76e;
+
+    /* 🔥 文章の改行バランスを調整 */
+    white-space: normal; /* 通常の改行 */
+    word-break: keep-all; /* 日本語の単語を途中で切らない */
+    overflow-wrap: break-word; /* 画面からはみ出る場合は単語単位で改行 */
+    text-wrap: balance; /* 文章全体のバランスを取って改行 */
+}
+
+/* 🔥 英語テキスト（中央揃え） */
+.quote-en {
+    font-size: 1.5rem;
+    display: block;
+    margin-top: 20px;
+    text-align: center; /* 中央揃え */
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* 🔥 モバイル対応 */
 @media (max-width: 768px) {
     .main-title {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
     }
     .quote {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         max-width: 95%;
     }
-    .quote span {
+    .quote-en {
         font-size: 1.3rem;
-    }
-    .quote-section {
-        padding: 80px 0; /* スマホ向けに間隔を微調整 */
     }
 }
