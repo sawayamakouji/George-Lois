@@ -6,10 +6,10 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden; /* 横スクロールを防ぐ */
 }
 
-/* 🔥 ヒーローセクション（最初のタイトル表示） */
+/* 🔥 ヒーローセクション（トップのキャッチコピー） */
 .hero {
     height: 100vh;
     display: flex;
@@ -17,73 +17,95 @@ body {
     align-items: center;
     text-align: center;
     background: linear-gradient(to bottom, #111, #000);
+    padding: 20px;
 }
 
 .main-title {
-    font-size: 3.5rem;
+    font-size: 3rem; /* 🔥 モバイルでも適切なサイズ */
     font-weight: 700;
     letter-spacing: 2px;
-    max-width: 80%;
+    max-width: 90%;
     text-transform: uppercase;
     text-align: center;
-    opacity: 1;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1.2s ease-out forwards;
 }
 
-/* 🔥 フレーズセクション（スクロール時に浮き上がる） */
+/* 🔥 名言セクション */
 .quotes-container {
-    padding: 100px 5%;
+    padding: 50px 5%;  /* ← スマホでも適切な余白に */
+
 }
 
 .quote-section {
+    padding: 100px 0;  /* 🔥 フレーズ間の間隔をスマホ向けに調整 */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
-    padding: 50px 0;
+    transform: translateY(60px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
 }
 
-/* 🔥 スクロール時にフェードイン */
-.quote-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 🔥 日本語のテキスト（左揃え） */
+/* 🔥 名言のテキスト */
 .quote {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 2.2rem; /* 🔥 文字サイズをスマホ向けに微調整 */
     font-weight: bold;
-    text-align: left; /* 左揃え */
-    max-width: 80%;
+    text-align: center;
+    max-width: 90%; /* 🔥 スマホの画面幅に合わせる */
     margin: 0 auto;
     line-height: 1.8;
     color: #f5d76e;
-
-    /* 🔥 文章の改行バランスを調整 */
-    white-space: normal; /* 通常の改行 */
-    word-break: keep-all; /* 日本語の単語を途中で切らない */
-    overflow-wrap: break-word; /* 画面からはみ出る場合は単語単位で改行 */
-    text-wrap: balance; /* 文章全体のバランスを取って改行 */
+    white-space: normal; /* 🔥 不自然な縮小を防ぐ */
+    word-break: break-word; /* 🔥 単語が画面外に出ないように */
+    overflow-wrap: break-word; /* 🔥 画面内で単語を適切に折り返す */
 }
 
-/* 🔥 英語テキスト（中央揃え） */
+/* 🔥 英語部分のデザイン */
 .quote-en {
     font-size: 1.5rem;
     display: block;
     margin-top: 20px;
-    text-align: center; /* 中央揃え */
+    padding-top: 10px;
     color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    max-width: 90%; /* 🔥 .quoteと同じ幅にする */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* 🔥 スクロール時にフェードイン */
+.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🔥 フェードインアニメーション */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 🔥 モバイル対応 */
 @media (max-width: 768px) {
     .main-title {
-        font-size: 2.8rem;
+        font-size: 2.2rem;
     }
     .quote {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         max-width: 95%;
     }
-    .quote-en {
+    .quote span {
         font-size: 1.3rem;
+    }
+    .quote-section {
+        padding: 80px 0; /* スマホ向けに間隔を微調整 */
     }
 }
