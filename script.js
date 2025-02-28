@@ -1,19 +1,54 @@
+// 指定した文字（「、」「。」）で改行する関数
+function formatJapaneseText(text) {
+    // 「、」と「。」の後に改行を挿入
+    text = text.replace(/、/g, "、<br>").replace(/。/g, "。<br>");
+
+    // 改行後の文字が2文字以下ならフォントサイズを縮小
+    text = text.replace(/<br>(.{1,2})$/g, '<br><span class="small-text">$1</span>');
+
+    return text;
+}
+
+// 名言リストを HTML に追加（改行処理付き）
+const quoteContainer = document.getElementById("quote-container");
+
+quotes.forEach(quote => {
+    const section = document.createElement("div");
+    section.classList.add("quote-section");
+
+    section.innerHTML = `
+        <p class="quote">${formatJapaneseText(quote.jp)}</p>
+        <span class="quote-en">${quote.en}</span>
+    `;
+
+    quoteContainer.appendChild(section);
+});
+
+// スクロール時のアニメーション適用
+document.addEventListener("scroll", function() {
+    document.querySelectorAll(".quote-section").forEach(section => {
+        if (section.getBoundingClientRect().top < window.innerHeight * 0.8) {
+            section.classList.add("reveal");
+        }
+    });
+});
+
 // スクロール関連の変数
 let autoScrollActive = false;
-let scrollSpeed = 1; // 🔥 スクロール速度（調整可能）
+let scrollSpeed = 1; // 🔥 スクロール速度
 let scrollInterval;
 
 // 自動スクロール開始
 function startAutoScroll() {
-    if (autoScrollActive) return; // すでに動作中なら何もしない
+    if (autoScrollActive) return;
     autoScrollActive = true;
     
     scrollInterval = setInterval(() => {
-        window.scrollBy(0, scrollSpeed); // Y軸方向にscrollSpeedピクセルずつスクロール
+        window.scrollBy(0, scrollSpeed);
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            clearInterval(scrollInterval); // 最後まで行ったら止める
+            clearInterval(scrollInterval);
         }
-    }, 20); // 20msごとにスクロール
+    }, 20);
 }
 
 // ユーザーがスクロールを開始したら、自動スクロールを発動（PC）
@@ -30,12 +65,13 @@ document.addEventListener("touchstart", () => {
 document.addEventListener("wheel", () => {
     clearInterval(scrollInterval);
     autoScrollActive = false;
-}, { once: true }); // 一度手動スクロールしたら停止
+}, { once: true });
 
 document.addEventListener("touchmove", () => {
     clearInterval(scrollInterval);
     autoScrollActive = false;
-}, { once: true }); // スマホで手動スクロールしたら停止
+}, { once: true });
+
 
 
 const quotes = [
