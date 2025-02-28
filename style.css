@@ -6,7 +6,7 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden; /* 🔥 横スクロールを防ぐ */
 }
 
 /* 🔥 ヒーローセクション（トップのキャッチコピー） */
@@ -20,10 +20,10 @@ body {
 }
 
 .main-title {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
     font-weight: 700;
     letter-spacing: 2px;
-    max-width: 80%;
+    max-width: 90%;
     text-transform: uppercase;
     text-align: center;
     opacity: 0;
@@ -33,25 +33,26 @@ body {
 
 /* 🔥 名言セクション */
 .quotes-container {
-    padding: 80px 10%;  /* ← ここで上下の余白を増やす */
+    padding: 80px 5%;  /* ← スマホでも適切な余白に */
 }
 
 .quote-section {
-    padding: 200px 0;  /* 🔥 フレーズ間の間隔を大きく */
+    padding: 150px 0;  /* 🔥 フレーズ間の間隔をスマホ向けに微調整 */
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     opacity: 0;
-    transform: translateY(60px); /* 初期位置を下に */
+    transform: translateY(60px);
     transition: opacity 1.2s ease-out, transform 1.2s ease-out;
 }
+
 .quote {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* 🔥 文字サイズをスマホ向けに微調整 */
     font-weight: bold;
     text-align: center;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     line-height: 1.8;
-    color: #f5d76e; /* ゴールド系で高級感を演出 */
+    color: #f5d76e;
     white-space: pre-line;
     word-break: keep-all;
     hyphens: auto;
@@ -59,13 +60,12 @@ body {
 
 /* 🔥 英語部分のデザイン */
 .quote span {
-    font-size: 1.8rem;
+    font-size: 1.5rem; /* 🔥 スマホでも読みやすいサイズ */
     display: block;
-    margin-top: 50px; /* 🔥 ここを増やして間隔を広げる */
-    padding-top: 50px; /* 🔥 上下に余裕をもたせる */
+    margin-top: 40px;
+    padding-top: 10px;
     color: rgba(255, 255, 255, 0.7);
 }
-
 
 /* 🔥 スクロール時にフェードイン */
 .reveal {
@@ -88,16 +88,16 @@ body {
 /* 🔥 モバイル対応 */
 @media (max-width: 768px) {
     .main-title {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
     }
     .quote {
-        font-size: 2rem;
+        font-size: 1.8rem;
         max-width: 90%;
     }
     .quote span {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
     .quote-section {
-        padding: 150px 0;
+        padding: 120px 0; /* スマホ向けに少し狭め */
     }
 }
