@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;500;700&display=swap');
+
+body {
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* 🔥 ヒーローセクション（トップのキャッチコピー） */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #111, #000);
+}
+
+.main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    max-width: 80%;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1.2s ease-out forwards;
+}
+
+/* 🔥 名言セクション */
+.quotes-container {
+    padding: 80px 10%;  /* ← ここで上下の余白を増やす */
+}
+
+.quote-section {
+    padding: 200px 0;  /* 🔥 フレーズ間の間隔を大きく */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transform: translateY(60px); /* 初期位置を下に */
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+.quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: #f5d76e; /* ゴールド系で高級感を演出 */
+    white-space: pre-line;
+    word-break: keep-all;
+    hyphens: auto;
+}
+
+/* 🔥 英語部分のデザイン */
+.quote span {
+    font-size: 1.8rem;
+    display: block;
+    margin-top: 50px; /* 🔥 ここを増やして間隔を広げる */
+    padding-top: 50px; /* 🔥 上下に余裕をもたせる */
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+/* 🔥 スクロール時にフェードイン */
+.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🔥 フェードインアニメーション */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🔥 モバイル対応 */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.8rem;
+    }
+    .quote {
+        font-size: 2rem;
+        max-width: 90%;
+    }
+    .quote span {
+        font-size: 1.5rem;
+    }
+    .quote-section {
+        padding: 150px 0;
+    }
+}
